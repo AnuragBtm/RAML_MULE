@@ -1,0 +1,114 @@
+#%RAML 1.0
+title: Car_Retailer_API
+#%RAML 1.0
+version: v1
+
+
+traits:
+  trait:
+    description: Admin can delete car records
+    responses:
+      "200":
+        description: Car record deleted successfully
+resourceTypes:
+  resourceType:
+    description: Update a car record by ID
+    put:
+      description: Admin can update car records with id as URI params
+    get:
+      description: Admin can view all cars records
+      responses:
+        "200":
+          description: ""
+
+  resourceType1:
+    description: View a specific car record by ID
+    get:
+      description: Admin can view specific car record with id
+
+  resourceType2:
+    description: View car records in ascending order of their price
+    get:
+      description: Admin can view car records in ascending order of their price
+      responses:
+        "200":
+          description: List of car records in ascending order of price
+baseUri: /api
+
+types:
+  Car:
+    properties:
+      id: number
+      name: string
+      engineType: string
+      manufacturingYear: number
+      fuelType: string
+      otherInformation: array
+      condition: string
+      price: number
+
+  OtherInformation:
+    properties:
+      numberPlate: string
+      city: string
+      insurance: string
+      POC: string
+
+  /errorResponse:
+   description: Default error response
+  content:
+  application/json:
+      example: |
+        {
+          "error": "An error occurred"
+        }
+
+
+  newtype:
+    type: number
+/adminCreateCar:
+  description: Create a new car record
+  post:
+    description: Admin can create car records
+    body:
+      application/json:
+        example: !include examples/Ex1.json
+    responses:
+      200:
+        description: Car record created successfully
+            !include errorResponse
+
+/adminUpdateCar:
+  /adminViewAllCars:
+    description: View all cars records
+  type: resourceType
+/adminDeleteCar:
+       description: Delete a car record by ID
+       delete:
+         is:
+           - trait
+/adminViewSpecificCar:
+  type: resourceType1
+/adminViewCarsByPrice:
+  type: resourceType2
+/adminViewCarsByParams:
+       description: View car records with model year and fuel type from query params
+       get:
+        description: Admin can view car records with model year and fuel type from    query params
+        # queryParameters:
+        #  modelYear:
+        #  type: newtype
+        body: 
+          application/json:
+            example: !include examples/Ex1.json
+        responses:
+          200:
+              description: Car record created successfully
+                 !include errorResponse
+
+        # description:'List of car records matching the specified criteria'
+        #   application/json:
+        #     example: !include examples/Ex1.json
+      
+
+
