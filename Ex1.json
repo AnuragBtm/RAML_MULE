@@ -1,0 +1,17 @@
+{
+            "id": 24,
+            "name": "Alto 800",
+            "engineType": "3 cylinder",
+            "manufacturingYear": 1990,
+            "fuelType": "CNG",
+            "otherInformation": [
+              {
+                "numberPlate": "DL01 AE 1293",
+                "city": "New Delhi",
+                "insurance": "present till 2023",
+                "POC": "present till 2022"
+              }
+            ],
+            "condition": "good",
+            "price": 2000000
+}
